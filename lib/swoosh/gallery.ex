@@ -112,6 +112,10 @@ defmodule Swoosh.Gallery do
   @spec __using__(any) ::
           {:__block__, [], [{:@ | :def | :import | {any, any, any}, [...], [...]}, ...]}
   defmacro __using__(options) do
+    title = Keyword.get(options, :title, "Swoosh Gallery")
+    header = Keyword.get(options, :header, "Swoosh Gallery")
+    sort = Keyword.get(options, :sort, true)
+
     quote do
       @behaviour Swoosh.Gallery
 
@@ -119,15 +123,13 @@ defmodule Swoosh.Gallery do
       Module.register_attribute(__MODULE__, :previews, accumulate: true)
       Module.register_attribute(__MODULE__, :groups, accumulate: true)
       @group_path nil
-      @sort Keyword.get(unquote(options), :sort, true)
-      @title Keyword.get(unquote(options), :title, "Swoosh Gallery")
-      @header Keyword.get(unquote(options), :header, "Swoosh Gallery")
+      @sort unquote(sort)
 
       def init(opts) do
         opts
         |> Keyword.put(:gallery, __MODULE__.get())
-        |> Keyword.put(:title, @title)
-        |> Keyword.put(:header, @header)
+        |> Keyword.put(:title, unquote(title))
+        |> Keyword.put(:header, unquote(header))
       end
 
       def call(conn, opts) do
