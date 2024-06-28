@@ -168,8 +168,8 @@ defmodule Swoosh.Gallery do
       @previews %{
         group: @group_path,
         path: build_preview_path(@group_path, unquote(path)),
-        email_mfa: {unquote(module), :preview, [opts]},
-        details_mfa: {unquote(module), :preview_details, [opts]}
+        email_mfa: {unquote(module), :preview, [unquote(opts)]},
+        details_mfa: {unquote(module), :preview_details, [unquote(opts)]}
       }
     end
   end
