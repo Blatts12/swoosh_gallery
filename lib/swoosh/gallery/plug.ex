@@ -22,11 +22,15 @@ defmodule Swoosh.Gallery.Plug do
 
   def call(conn, opts) do
     gallery = Keyword.fetch!(opts, :gallery)
+    title = Keyword.fetch!(opts, :title)
+    header = Keyword.fetch!(opts, :header)
 
     conn =
       conn
       |> assign(:base_path, Path.join(["/" | conn.script_name]))
       |> assign(:gallery, gallery)
+      |> assign(:title, title)
+      |> assign(:header, header)
 
     super(conn, opts)
   end
