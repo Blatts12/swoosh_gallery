@@ -159,7 +159,7 @@ defmodule Swoosh.Gallery do
       end
   """
   @spec preview(String.t(), module()) :: no_return()
-  defmacro preview(path, module) do
+  defmacro preview(path, module, opts \\ []) do
     path = validate_path(path)
     module = Macro.expand(module, __ENV__)
     validate_preview_details!(module)
@@ -168,8 +168,8 @@ defmodule Swoosh.Gallery do
       @previews %{
         group: @group_path,
         path: build_preview_path(@group_path, unquote(path)),
-        email_mfa: {unquote(module), :preview, []},
-        details_mfa: {unquote(module), :preview_details, []}
+        email_mfa: {unquote(module), :preview, [opts]},
+        details_mfa: {unquote(module), :preview_details, [opts]}
       }
     end
   end
