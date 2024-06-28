@@ -293,7 +293,7 @@ defmodule Swoosh.Gallery do
     end
   end
 
-  defp validate_preview_details!(module, fun \\ :preview_details, opts \\ []) do
+  defp validate_preview_details!(module, fun \\ :preview_details, opts) do
     apply(module, fun, opts)
     |> Keyword.validate!([:title, :description, tags: []])
     |> Map.new()

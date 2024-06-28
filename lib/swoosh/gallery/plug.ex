@@ -43,7 +43,7 @@ defmodule Swoosh.Gallery.Plug do
     |> put_resp_content_type("text/html")
     |> send_resp(
       200,
-      Layout.render(conn.assigns.gallery, base_path: conn.assigns.base_path, preview: nil)
+      Layout.render(conn.assigns.gallery, base_path: conn.assigns.base_path, preview: nil, title: conn.assigns.title, header: conn.assigns.header)
     )
   end
 
@@ -87,7 +87,7 @@ defmodule Swoosh.Gallery.Plug do
     |> put_resp_content_type("text/html")
     |> send_resp(
       200,
-      Layout.render(conn.assigns.gallery, base_path: conn.assigns.base_path, preview: preview)
+      Layout.render(conn.assigns.gallery, base_path: conn.assigns.base_path, preview: preview, title: conn.assigns.title, header: conn.assigns.header)
     )
   end
 
