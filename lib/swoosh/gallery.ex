@@ -162,7 +162,7 @@ defmodule Swoosh.Gallery do
   defmacro preview(path, module, opts \\ []) do
     path = validate_path(path)
     module = Macro.expand(module, __ENV__)
-    validate_preview_details!(module)
+    validate_preview_details!(module, :preview_details, [opts])
 
     quote do
       @previews %{
@@ -287,8 +287,7 @@ defmodule Swoosh.Gallery do
   end
 
   defp validate_preview_details!(module, fun \\ :preview_details, opts \\ []) do
-    module
-    |> apply(fun, opts)
+    apply(module, fun, opts)
     |> Keyword.validate!([:title, :description, tags: []])
     |> Map.new()
     |> tap(&ensure_title!/1)
